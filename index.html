@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Milky Way Digital Twin</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .card {
+            background: white;
+            width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>🍫 Milky Way Digital Twin</h1>
+
+        <p>Dashboard successfully deployed!</p>
+
+        <p id="time"></p>
+    </div>
+
+    <script>
+        setInterval(() => {
+            document.getElementById("time").innerHTML =
+                "Current Time: " + new Date().toLocaleTimeString();
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
