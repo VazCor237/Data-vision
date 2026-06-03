@@ -1,9 +1,92 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>TEST</title>
+
+<title>Milky Way Digital Twin</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:10px;
+border-radius:12px;
+box-shadow:0px 0px 10px rgba(0,0,0,.2);
+font-size:24px;
+}
+
+</style>
+
 </head>
-<body style="background:red;color:white;text-align:center;">
-    <h1>GITHUB PAGES FUNCIONA</h1>
+
+<body>
+
+<h1>🍫 Milky Way Digital Twin</h1>
+
+<div class="card">
+Temperature:
+<span id="temp">0</span>
+°C
+</div>
+
+<div class="card">
+Vacuum Pressure:
+<span id="pressure">0</span>
+kPa
+</div>
+
+<div class="card">
+Gripper Wear:
+<span id="wear">0</span>
+%
+</div>
+
+<div class="card">
+Approved Chocolates:
+<span id="approved">0</span>
+</div>
+
+<script>
+
+// PEGAR AQUÍ TU firebaseConfig
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+db.ref("milkyway/current")
+.on("value",(snapshot)=>{
+
+const data = snapshot.val();
+
+if(!data) return;
+
+document.getElementById("temp").innerText =
+data.temperature;
+
+document.getElementById("pressure").innerText =
+data.vacuumPressure;
+
+document.getElementById("wear").innerText =
+data.gripperWear;
+
+document.getElementById("approved").innerText =
+data.approvedCount;
+
+});
+
+</script>
+
 </body>
+
 </html>
