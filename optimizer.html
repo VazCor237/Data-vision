@@ -102,24 +102,24 @@ body{
 <div class="dashboard">
 
 <div class="card">
-<h2>Conveyor Speed</h2>
-<div class="value" id="conveyorSpeed">0 m/s</div>
+<h2>Feed Rate</h2>
+<div class="value" id="feedRate">0</div>
 </div>
 
 <div class="card">
-<h2>Rejected Chocolates</h2>
-<div class="value" id="rejectedCount">0</div>
+<h2>Reject Count</h2>
+<div class="value" id="rejectCount">0</div>
 </div>
 
 </div>
 
 <div class="chart-placeholder">
-<h2>Conveyor Speed Trend</h2>
+<h2>Feed Rate Trend</h2>
 <p>Future Google Chart</p>
 </div>
 
 <div class="chart-placeholder">
-<h2>Speed vs Rejects</h2>
+<h2>Feed Rate vs Reject Count</h2>
 <p>Future Optimization Chart</p>
 </div>
 
@@ -148,17 +148,17 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-db.ref().on("value",(snapshot)=>{
+db.ref("current").on("value",(snapshot)=>{
 
     const data = snapshot.val();
 
     if(!data) return;
 
-    document.getElementById("conveyorSpeed").innerHTML =
-        data.conveyorSpeed + " m/s";
+    document.getElementById("feedRate").innerHTML =
+        data.unpacking.feed_rate;
 
-    document.getElementById("rejectedCount").innerHTML =
-        data.rejectedCount;
+    document.getElementById("rejectCount").innerHTML =
+        data.unpacking.reject_count;
 
 });
 
