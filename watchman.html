@@ -109,13 +109,13 @@ body{
 <div class="dashboard">
 
 <div class="card">
-<h2>Temperature</h2>
+<h2>Bar Temperature</h2>
 <div class="value" id="temperature">0 °C</div>
 </div>
 
 <div class="card">
-<h2>Vacuum Pressure</h2>
-<div class="value" id="vacuumPressure">0 kPa</div>
+<h2>Wrapper Jam Count</h2>
+<div class="value" id="jamCount">0</div>
 </div>
 
 </div>
@@ -126,7 +126,7 @@ body{
 </div>
 
 <div class="chart-placeholder">
-<h2>Vacuum Pressure Trend</h2>
+<h2>Anomaly Events</h2>
 <p>Future Google Chart</p>
 </div>
 
@@ -155,17 +155,17 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-db.ref().on("value",(snapshot)=>{
+db.ref("current").on("value",(snapshot)=>{
 
     const data = snapshot.val();
 
     if(!data) return;
 
     document.getElementById("temperature").innerHTML =
-        data.temperature + " °C";
+        data.unpacking.bar_temperature + " °C";
 
-    document.getElementById("vacuumPressure").innerHTML =
-        data.vacuumPressure + " kPa";
+    document.getElementById("jamCount").innerHTML =
+        data.splitting.wrapper_jam_count;
 
 });
 
