@@ -9,11 +9,13 @@
 
 <title>Optimizer - Setpoint Optimization</title>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <style>
 
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
     margin:0;
@@ -51,11 +53,6 @@ body{
     text-align:center;
 }
 
-.card h2{
-    margin-top:0;
-    color:#555;
-}
-
 .value{
     font-size:42px;
     font-weight:bold;
@@ -70,7 +67,7 @@ body{
     text-align:center;
 }
 
-.recommendation-box{
+.alert-box{
     margin-top:30px;
     background:#d1ecf1;
     border:1px solid #bee5eb;
@@ -86,10 +83,6 @@ body{
     color:white;
     text-decoration:none;
     border-radius:10px;
-}
-
-.back-button:hover{
-    background:#34495e;
 }
 
 </style>
@@ -110,45 +103,66 @@ body{
 
 <div class="card">
 <h2>Conveyor Speed</h2>
-<div class="value">-- m/s</div>
+<div class="value" id="conveyorSpeed">0 m/s</div>
 </div>
 
 <div class="card">
 <h2>Rejected Chocolates</h2>
-<div class="value">--</div>
+<div class="value" id="rejectedCount">0</div>
 </div>
 
 </div>
 
 <div class="chart-placeholder">
-
 <h2>Conveyor Speed Trend</h2>
-
 <p>Future Google Chart</p>
-
 </div>
 
 <div class="chart-placeholder">
-
-<h2>Speed vs Rejected Chocolates</h2>
-
+<h2>Speed vs Rejects</h2>
 <p>Future Optimization Chart</p>
-
 </div>
 
-<div class="recommendation-box">
-
+<div class="alert-box">
 <h2>AI Optimization Recommendation</h2>
-
-<p>
-Future Gemini recommendations will suggest the optimal conveyor speed to minimize rejected chocolates and maximize production efficiency.
-</p>
-
+<p>Future Gemini optimization recommendations will appear here.</p>
 </div>
 
 <a class="back-button" href="index.html">
 ⬅ Back to Dashboard
 </a>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuyJ9a4z2VvGcYHJirJvC1v1VlviOILOU",
+  authDomain: "data-vision-9fbe2.firebaseapp.com",
+  databaseURL: "https://data-vision-9fbe2-default-rtdb.firebaseio.com",
+  projectId: "data-vision-9fbe2",
+  storageBucket: "data-vision-9fbe2.firebasestorage.app",
+  messagingSenderId: "307018246519",
+  appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+db.ref().on("value",(snapshot)=>{
+
+    const data = snapshot.val();
+
+    if(!data) return;
+
+    document.getElementById("conveyorSpeed").innerHTML =
+        data.conveyorSpeed + " m/s";
+
+    document.getElementById("rejectedCount").innerHTML =
+        data.rejectedCount;
+
+});
+
+</script>
 
 </body>
 
