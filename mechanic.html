@@ -109,19 +109,19 @@ body{
 <div class="dashboard">
 
 <div class="card">
-<h2>Gripper Wear</h2>
-<div class="value" id="gripperWear">0 %</div>
+<h2>Gripper Split Force</h2>
+<div class="value" id="gripperForce">0 N</div>
 </div>
 
 <div class="card">
-<h2>Robot Cycles</h2>
-<div class="value" id="cycleCount">0</div>
+<h2>Wrapper Jam Count</h2>
+<div class="value" id="jamCount">0</div>
 </div>
 
 </div>
 
 <div class="chart-placeholder">
-<h2>Gripper Wear Trend</h2>
+<h2>Gripper Force Trend</h2>
 <p>Future Google Chart</p>
 </div>
 
@@ -155,17 +155,17 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-db.ref().on("value",(snapshot)=>{
+db.ref("current").on("value",(snapshot)=>{
 
     const data = snapshot.val();
 
     if(!data) return;
 
-    document.getElementById("gripperWear").innerHTML =
-        data.gripperWear + " %";
+    document.getElementById("gripperForce").innerHTML =
+        data.splitting.gripper_split_force + " N";
 
-    document.getElementById("cycleCount").innerHTML =
-        data.cycleCount;
+    document.getElementById("jamCount").innerHTML =
+        data.splitting.wrapper_jam_count;
 
 });
 
