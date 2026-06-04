@@ -9,6 +9,10 @@
 
 <title>Watchman - Anomaly Detection</title>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <style>
 
 *{
@@ -88,10 +92,6 @@ body{
     border-radius:10px;
 }
 
-.back-button:hover{
-    background:#34495e;
-}
-
 </style>
 
 </head>
@@ -110,45 +110,66 @@ body{
 
 <div class="card">
 <h2>Temperature</h2>
-<div class="value">-- °C</div>
+<div class="value" id="temperature">0 °C</div>
 </div>
 
 <div class="card">
 <h2>Vacuum Pressure</h2>
-<div class="value">-- kPa</div>
+<div class="value" id="vacuumPressure">0 kPa</div>
 </div>
 
 </div>
 
 <div class="chart-placeholder">
-
 <h2>Temperature Trend</h2>
-
 <p>Future Google Chart</p>
-
 </div>
 
 <div class="chart-placeholder">
-
 <h2>Vacuum Pressure Trend</h2>
-
 <p>Future Google Chart</p>
-
 </div>
 
 <div class="alert-box">
-
 <h2>AI Anomaly Detection</h2>
-
-<p>
-Future Gemini recommendations and anomaly alerts will be displayed here.
-</p>
-
+<p>Future Gemini anomaly alerts will appear here.</p>
 </div>
 
 <a class="back-button" href="index.html">
 ⬅ Back to Dashboard
 </a>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuyJ9a4z2VvGcYHJirJvC1v1VlviOILOU",
+  authDomain: "data-vision-9fbe2.firebaseapp.com",
+  databaseURL: "https://data-vision-9fbe2-default-rtdb.firebaseio.com",
+  projectId: "data-vision-9fbe2",
+  storageBucket: "data-vision-9fbe2.firebasestorage.app",
+  messagingSenderId: "307018246519",
+  appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+db.ref().on("value",(snapshot)=>{
+
+    const data = snapshot.val();
+
+    if(!data) return;
+
+    document.getElementById("temperature").innerHTML =
+        data.temperature + " °C";
+
+    document.getElementById("vacuumPressure").innerHTML =
+        data.vacuumPressure + " kPa";
+
+});
+
+</script>
 
 </body>
 
