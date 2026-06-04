@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Milky Way Digital Twin</title>
 
@@ -11,18 +13,38 @@
 <style>
 
 body{
-font-family:Arial;
-background:#f4f4f4;
-padding:20px;
+    font-family: Arial, sans-serif;
+    background:#ececec;
+    margin:0;
+    padding:30px;
+}
+
+h1{
+    font-size:48px;
+}
+
+.container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
 }
 
 .card{
-background:white;
-padding:20px;
-margin:10px;
-border-radius:12px;
-box-shadow:0px 0px 10px rgba(0,0,0,.2);
-font-size:24px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.title{
+    font-size:20px;
+    color:#666;
+}
+
+.value{
+    font-size:42px;
+    font-weight:bold;
+    margin-top:10px;
 }
 
 </style>
@@ -33,81 +55,88 @@ font-size:24px;
 
 <h1>🍫 Milky Way Digital Twin</h1>
 
-<div class="card">
-Temperature:
-<span id="temp">0</span>
-°C
-</div>
+<div class="container">
 
-<div class="card">
-Vacuum Pressure:
-<span id="pressure">0</span>
-kPa
-</div>
+    <div class="card">
+        <div class="title">Temperature</div>
+        <div class="value" id="temperature">0</div>
+    </div>
 
-<div class="card">
-Gripper Wear:
-<span id="wear">0</span>
-%
-</div>
+    <div class="card">
+        <div class="title">Vacuum Pressure</div>
+        <div class="value" id="vacuumPressure">0</div>
+    </div>
 
-<div class="card">
-Approved Chocolates:
-<span id="approved">0</span>
+    <div class="card">
+        <div class="title">Gripper Wear</div>
+        <div class="value" id="gripperWear">0</div>
+    </div>
+
+    <div class="card">
+        <div class="title">Approved Chocolates</div>
+        <div class="value" id="approvedCount">0</div>
+    </div>
+
+    <div class="card">
+        <div class="title">Rejected Chocolates</div>
+        <div class="value" id="rejectedCount">0</div>
+    </div>
+
+    <div class="card">
+        <div class="title">Robot Cycles</div>
+        <div class="value" id="cycleCount">0</div>
+    </div>
+
 </div>
 
 <script>
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCuyJ9a4z2VvGcYHJirJvC1v1VlviOILOU",
-  authDomain: "data-vision-9fbe2.firebaseapp.com",
-  databaseURL: "https://data-vision-9fbe2-default-rtdb.firebaseio.com",
-  projectId: "data-vision-9fbe2",
-  storageBucket: "data-vision-9fbe2.firebasestorage.app",
-  messagingSenderId: "307018246519",
-  appId: "1:307018246519:web:bd3bc4889d38a31cb7d972",
-  measurementId: "G-HKWMSBNZLS"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH_DOMAIN",
+    databaseURL: "TU_DATABASE_URL",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_BUCKET",
+    messagingSenderId: "TU_SENDER_ID",
+    appId: "TU_APP_ID"
+
+};
 
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-db.ref("milkyway/current")
+db.ref("/")
 .on("value",(snapshot)=>{
 
-const data = snapshot.val();
+    const data = snapshot.val();
 
-if(!data) return;
+    console.log(data);
 
-document.getElementById("temp").innerText =
-data.temperature;
+    if(!data) return;
 
-document.getElementById("pressure").innerText =
-data.vacuumPressure;
+    document.getElementById("temperature").innerText =
+        data.temperature + " °C";
 
-document.getElementById("wear").innerText =
-data.gripperWear;
+    document.getElementById("vacuumPressure").innerText =
+        data.vacuumPressure + " kPa";
 
-document.getElementById("approved").innerText =
-data.approvedCount;
+    document.getElementById("gripperWear").innerText =
+        data.gripperWear + " %";
+
+    document.getElementById("approvedCount").innerText =
+        data.approvedCount;
+
+    document.getElementById("rejectedCount").innerText =
+        data.rejectedCount;
+
+    document.getElementById("cycleCount").innerText =
+        data.cycleCount;
 
 });
 
 </script>
 
 </body>
-
 </html>
