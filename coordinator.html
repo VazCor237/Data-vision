@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Coordinator - Decision Support</title>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    padding:30px;
+    font-family:Arial,sans-serif;
+    background:#f0f2f5;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.header h1{
+    margin:0;
+    font-size:48px;
+}
+
+.header p{
+    color:#666;
+    font-size:18px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
+    text-align:center;
+}
+
+.value{
+    font-size:42px;
+    font-weight:bold;
+}
+
+.chart-placeholder{
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
+    text-align:center;
+}
+
+.alert-box{
+    margin-top:30px;
+    background:#f8d7da;
+    border:1px solid #f5c6cb;
+    border-radius:15px;
+    padding:20px;
+}
+
+.back-button{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 25px;
+    background:#2c3e50;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>📋 Student D - Coordinator</h1>
+<p>Decision Support Module</p>
+</div>
+
+<div class="dashboard">
+
+<div class="card">
+<h2>Approved Chocolates</h2>
+<div class="value">--</div>
+</div>
+
+<div class="card">
+<h2>Rejected Chocolates</h2>
+<div class="value">--</div>
+</div>
+
+<div class="card">
+<h2>Production Status</h2>
+<div class="value">RUNNING</div>
+</div>
+
+</div>
+
+<div class="chart-placeholder">
+<h2>Production Overview</h2>
+<p>Future Production Chart</p>
+</div>
+
+<div class="chart-placeholder">
+<h2>Decision Support Metrics</h2>
+<p>Future KPI Dashboard</p>
+</div>
+
+<div class="alert-box">
+<h2>AI Decision Support</h2>
+<p>
+Future Gemini recommendations and operational decisions will appear here.
+</p>
+</div>
+
+<a class="back-button" href="index.html">
+⬅ Back to Dashboard
+</a>
+
+</body>
+
+</html>
