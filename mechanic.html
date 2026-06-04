@@ -3,14 +3,21 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mechanic - Predictive Maintenance</title>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <style>
 
-*{box-sizing:border-box;}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -46,6 +53,11 @@ body{
     padding:25px;
     box-shadow:0px 4px 12px rgba(0,0,0,0.12);
     text-align:center;
+}
+
+.card h2{
+    margin-top:0;
+    color:#555;
 }
 
 .value{
@@ -87,20 +99,23 @@ body{
 <body>
 
 <div class="header">
+
 <h1>🔧 Student B - Mechanic</h1>
+
 <p>Predictive Maintenance Module</p>
+
 </div>
 
 <div class="dashboard">
 
 <div class="card">
 <h2>Gripper Wear</h2>
-<div class="value">-- %</div>
+<div class="value" id="gripperWear">0 %</div>
 </div>
 
 <div class="card">
 <h2>Robot Cycles</h2>
-<div class="value">--</div>
+<div class="value" id="cycleCount">0</div>
 </div>
 
 </div>
@@ -117,14 +132,44 @@ body{
 
 <div class="alert-box">
 <h2>AI Maintenance Recommendation</h2>
-<p>
-Future Gemini maintenance recommendations will appear here.
-</p>
+<p>Future Gemini maintenance recommendations will appear here.</p>
 </div>
 
 <a class="back-button" href="index.html">
 ⬅ Back to Dashboard
 </a>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuyJ9a4z2VvGcYHJirJvC1v1VlviOILOU",
+  authDomain: "data-vision-9fbe2.firebaseapp.com",
+  databaseURL: "https://data-vision-9fbe2-default-rtdb.firebaseio.com",
+  projectId: "data-vision-9fbe2",
+  storageBucket: "data-vision-9fbe2.firebasestorage.app",
+  messagingSenderId: "307018246519",
+  appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+db.ref().on("value",(snapshot)=>{
+
+    const data = snapshot.val();
+
+    if(!data) return;
+
+    document.getElementById("gripperWear").innerHTML =
+        data.gripperWear + " %";
+
+    document.getElementById("cycleCount").innerHTML =
+        data.cycleCount;
+
+});
+
+</script>
 
 </body>
 
