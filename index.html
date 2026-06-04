@@ -1,3 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Milky Way Digital Twin</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:30px;
+    font-family:Arial,sans-serif;
+    background:#f0f2f5;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.header h1{
+    margin:0;
+    font-size:48px;
+}
+
+.header p{
+    color:#666;
+    font-size:18px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
+    text-align:center;
+}
+
+.card h2{
+    margin-top:0;
+    color:#555;
+}
+
+.value{
+    font-size:42px;
+    font-weight:bold;
+}
+
+.section-title{
+    margin-top:60px;
+    margin-bottom:20px;
+    text-align:center;
+    font-size:36px;
+}
+
+.pillars{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.pillar-btn{
+    display:block;
+    text-decoration:none;
+    text-align:center;
+    background:#2c3e50;
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    font-size:22px;
+    transition:0.3s;
+}
+
+.pillar-btn:hover{
+    background:#34495e;
+}
+
+.footer{
+    text-align:center;
+    margin-top:50px;
+    color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>🍫 Milky Way Digital Twin</h1>
+
+<p>SCADA 4.0 Dashboard</p>
+
+</div>
+
+<div class="dashboard">
+
+<div class="card">
+<h2>Bar Temperature</h2>
+<div class="value" id="temperature">0 °C</div>
+</div>
+
+<div class="card">
+<h2>Feed Rate</h2>
+<div class="value" id="feedRate">0</div>
+</div>
+
+<div class="card">
+<h2>Gripper Force</h2>
+<div class="value" id="gripperForce">0 N</div>
+</div>
+
+<div class="card">
+<h2>Pushcart Fill Level</h2>
+<div class="value" id="fillLevel">0 %</div>
+</div>
+
+</div>
+
+<h2 class="section-title">AI Pillars</h2>
+
+<div class="pillars">
+
+<a class="pillar-btn" href="watchman.html">
+Student A<br>
+Watchman
+</a>
+
+<a class="pillar-btn" href="mechanic.html">
+Student B<br>
+Mechanic
+</a>
+
+<a class="pillar-btn" href="optimizer.html">
+Student C<br>
+Optimizer
+</a>
+
+<a class="pillar-btn" href="coordinator.html">
+Student D<br>
+Coordinator
+</a>
+
+</div>
+
+<div class="footer">
+
+<p>Milky Way Sorting & Inspection System</p>
+
+</div>
+
 <script>
 
 const firebaseConfig = {
@@ -39,3 +211,7 @@ db.ref("current").on("value", function(snapshot){
 });
 
 </script>
+
+</body>
+
+</html>
