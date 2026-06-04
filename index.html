@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -8,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Milky Way Digital Twin</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
 
@@ -114,22 +116,22 @@ body{
 
 <div class="card">
 <h2>Temperature</h2>
-<div class="value">-- °C</div>
+<div class="value" id="temperature">0 °C</div>
 </div>
 
 <div class="card">
 <h2>Vacuum Pressure</h2>
-<div class="value">-- kPa</div>
+<div class="value" id="vacuumPressure">0 kPa</div>
 </div>
 
 <div class="card">
 <h2>Gripper Wear</h2>
-<div class="value">-- %</div>
+<div class="value" id="gripperWear">0 %</div>
 </div>
 
 <div class="card">
 <h2>Approved Chocolates</h2>
-<div class="value">--</div>
+<div class="value" id="approvedCount">0</div>
 </div>
 
 </div>
@@ -165,6 +167,48 @@ Coordinator
 <p>Milky Way Sorting & Inspection System</p>
 
 </div>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCuyJ9a4z2VvGcYHJirJvC1v1VlviOILOU",
+  authDomain: "data-vision-9fbe2.firebaseapp.com",
+  databaseURL: "https://data-vision-9fbe2-default-rtdb.firebaseio.com",
+  projectId: "data-vision-9fbe2",
+  storageBucket: "data-vision-9fbe2.firebasestorage.app",
+  messagingSenderId: "307018246519",
+  appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+console.log("Firebase conectado");
+
+db.ref().on("value", function(snapshot){
+
+    const data = snapshot.val();
+
+    console.log(data);
+
+    if(!data) return;
+
+    document.getElementById("temperature").innerHTML =
+        data.temperature + " °C";
+
+    document.getElementById("vacuumPressure").innerHTML =
+        data.vacuumPressure + " kPa";
+
+    document.getElementById("gripperWear").innerHTML =
+        data.gripperWear + " %";
+
+    document.getElementById("approvedCount").innerHTML =
+        data.approvedCount;
+
+});
+
+</script>
 
 </body>
 
