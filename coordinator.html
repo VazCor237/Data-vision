@@ -102,18 +102,18 @@ body{
 <div class="dashboard">
 
 <div class="card">
-<h2>Approved Chocolates</h2>
-<div class="value" id="approvedCount">0</div>
+<h2>Feed Rate</h2>
+<div class="value" id="feedRate">0</div>
 </div>
 
 <div class="card">
-<h2>Rejected Chocolates</h2>
-<div class="value" id="rejectedCount">0</div>
+<h2>Reject Count</h2>
+<div class="value" id="rejectCount">0</div>
 </div>
 
 <div class="card">
-<h2>Robot Cycles</h2>
-<div class="value" id="cycleCount">0</div>
+<h2>Pushcart Fill Level</h2>
+<div class="value" id="fillLevel">0 %</div>
 </div>
 
 </div>
@@ -153,20 +153,20 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-db.ref().on("value",(snapshot)=>{
+db.ref("current").on("value",(snapshot)=>{
 
     const data = snapshot.val();
 
     if(!data) return;
 
-    document.getElementById("approvedCount").innerHTML =
-        data.approvedCount;
+    document.getElementById("feedRate").innerHTML =
+        data.unpacking.feed_rate;
 
-    document.getElementById("rejectedCount").innerHTML =
-        data.rejectedCount;
+    document.getElementById("rejectCount").innerHTML =
+        data.unpacking.reject_count;
 
-    document.getElementById("cycleCount").innerHTML =
-        data.cycleCount;
+    document.getElementById("fillLevel").innerHTML =
+        data.dispatch.pushcart_fill_level + " %";
 
 });
 
