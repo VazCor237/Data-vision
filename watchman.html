@@ -91,6 +91,32 @@ body{
     border-radius:10px;
 }
 
+.ai-button{
+    padding:12px 20px;
+    background:#2c3e50;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.ai-button:hover{
+    background:#34495e;
+}
+
+#loading{
+    display:none;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#aiResponse{
+    display:none;
+    margin-top:15px;
+    line-height:1.6;
+}
+
 </style>
 
 </head>
@@ -130,8 +156,21 @@ body{
 </div>
 
 <div class="alert-box">
+
 <h2>AI Anomaly Detection</h2>
-<p id="aiResponse">Waiting for AI analysis...</p>
+
+<button class="ai-button" id="analyzeBtn">
+Analyze with AI
+</button>
+
+<p id="loading">
+Analyzing...
+</p>
+
+<p id="aiResponse">
+Waiting for AI analysis...
+</p>
+
 </div>
 
 <a class="back-button" href="index.html">
@@ -168,14 +207,30 @@ db.ref("current").on("value",(snapshot)=>{
 
 });
 
-db.ref("ai/watchman/response").on("value",(snapshot)=>{
+document.getElementById("analyzeBtn").addEventListener("click",()=>{
 
-    const aiText = snapshot.val();
+    document.getElementById("loading").style.display =
+        "block";
 
-    if(!aiText) return;
+    document.getElementById("aiResponse").style.display =
+        "none";
 
-    document.getElementById("aiResponse").innerHTML =
-        aiText;
+    db.ref("ai/watchman/response")
+    .once("value")
+    .then((snapshot)=>{
+
+        const aiText = snapshot.val();
+
+        document.getElementById("loading").style.display =
+            "none";
+
+        document.getElementById("aiResponse").style.display =
+            "block";
+
+        document.getElementById("aiResponse").innerHTML =
+            aiText || "No AI response available.";
+
+    });
 
 });
 
