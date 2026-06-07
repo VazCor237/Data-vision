@@ -1,144 +1,3 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Watchman - Anomaly Detection</title>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    padding:30px;
-    font-family:Arial,sans-serif;
-    background:#f0f2f5;
-}
-
-.header{
-    text-align:center;
-    margin-bottom:40px;
-}
-
-.header h1{
-    margin:0;
-    font-size:48px;
-}
-
-.header p{
-    color:#666;
-    font-size:18px;
-}
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:white;
-    border-radius:15px;
-    padding:25px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
-    text-align:center;
-}
-
-.card h2{
-    margin-top:0;
-    color:#555;
-}
-
-.value{
-    font-size:42px;
-    font-weight:bold;
-}
-
-.chart-placeholder{
-    margin-top:40px;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
-    text-align:center;
-}
-
-.alert-box{
-    margin-top:30px;
-    background:#fff3cd;
-    border:1px solid #ffe69c;
-    border-radius:15px;
-    padding:20px;
-}
-
-.back-button{
-    display:inline-block;
-    margin-top:30px;
-    padding:15px 25px;
-    background:#2c3e50;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-
-<h1>👁️ Student A - Watchman</h1>
-
-<p>Anomaly Detection Module</p>
-
-</div>
-
-<div class="dashboard">
-
-<div class="card">
-<h2>Bar Temperature</h2>
-<div class="value" id="temperature">0 °C</div>
-</div>
-
-<div class="card">
-<h2>Wrapper Jam Count</h2>
-<div class="value" id="jamCount">0</div>
-</div>
-
-</div>
-
-<div class="chart-placeholder">
-<h2>Temperature Trend</h2>
-<p>Future Google Chart</p>
-</div>
-
-<div class="chart-placeholder">
-<h2>Anomaly Events</h2>
-<p>Future Google Chart</p>
-</div>
-
-<div class="alert-box">
-<h2>AI Anomaly Detection</h2>
-<p>Future Gemini anomaly alerts will appear here.</p>
-</div>
-
-<a class="back-button" href="index.html">
-⬅ Back to Dashboard
-</a>
-
 <script>
 
 const firebaseConfig = {
@@ -155,6 +14,8 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
+/* LIVE PROCESS DATA */
+
 db.ref("current").on("value",(snapshot)=>{
 
     const data = snapshot.val();
@@ -169,8 +30,17 @@ db.ref("current").on("value",(snapshot)=>{
 
 });
 
+/* AI RESPONSE */
+
+db.ref("ai/watchman/response").on("value",(snapshot)=>{
+
+    const aiText = snapshot.val();
+
+    if(!aiText) return;
+
+    document.getElementById("aiResponse").innerHTML =
+        aiText;
+
+});
+
 </script>
-
-</body>
-
-</html>
