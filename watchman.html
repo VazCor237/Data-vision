@@ -11,6 +11,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <style>
 
@@ -117,6 +118,11 @@ body{
     line-height:1.6;
 }
 
+#jamChart{
+    width:100%;
+    height:450px;
+}
+
 </style>
 
 </head>
@@ -146,13 +152,11 @@ body{
 </div>
 
 <div class="chart-placeholder">
-<h2>Temperature Trend</h2>
-<p>Future Google Chart</p>
-</div>
 
-<div class="chart-placeholder">
-<h2>Anomaly Events</h2>
-<p>Future Google Chart</p>
+<h2>Wrapper Jam Trend</h2>
+
+<div id="jamChart"></div>
+
 </div>
 
 <div class="alert-box">
@@ -200,12 +204,14 @@ db.ref("current").on("value",(snapshot)=>{
     if(!data) return;
 
     document.getElementById("temperature").innerHTML =
-        data.unpacking.bar_temperature + " °C";
+        data.unpacking.bar_temperature.toFixed(2) + " °C";
 
     document.getElementById("jamCount").innerHTML =
         data.splitting.wrapper_jam_count;
 
 });
+
+/* AI RESPONSE */
 
 document.getElementById("analyzeBtn").addEventListener("click",()=>{
 
@@ -233,6 +239,73 @@ document.getElementById("analyzeBtn").addEventListener("click",()=>{
     });
 
 });
+
+/* GOOGLE CHART */
+
+google.charts.load('current',{
+    packages:['corechart']
+});
+
+google.charts.setOnLoadCallback(loadJamChart);
+
+function loadJamChart(){
+
+    db.ref("history").on("value",(snapshot)=>{
+
+        const history = snapshot.val();
+
+        if(!history) return;
+
+        let chartData = [
+            ["Sample","Wrapper Jam Count"]
+        ];
+
+        let counter = 1;
+
+        Object.values(history).forEach(record=>{
+
+            chartData.push([
+                "S" + counter,
+                Number(record.splitting.wrapper_jam_count)
+            ]);
+
+            counter++;
+
+        });
+
+        const data =
+            google.visualization.arrayToDataTable(chartData);
+
+        const options = {
+
+            title: "Wrapper Jam Count Trend",
+
+            curveType: "function",
+
+            legend: {
+                position: "none"
+            },
+
+            hAxis: {
+                title: "Production Samples"
+            },
+
+            vAxis: {
+                title: "Jam Count"
+            }
+
+        };
+
+        const chart =
+            new google.visualization.LineChart(
+                document.getElementById("jamChart")
+            );
+
+        chart.draw(data, options);
+
+    });
+
+}
 
 </script>
 
