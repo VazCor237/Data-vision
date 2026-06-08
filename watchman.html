@@ -262,15 +262,18 @@ function loadJamChart(){
 
         let counter = 1;
 
-        Object.values(history).forEach(record=>{
-
+        const records =
+            Object.values(history).slice(-50);
+        
+        records.forEach(record=>{
+        
             chartData.push([
                 "S" + counter,
                 Number(record.splitting.wrapper_jam_count)
             ]);
-
+        
             counter++;
-
+        
         });
 
         const data =
