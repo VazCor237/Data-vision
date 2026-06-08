@@ -10,7 +10,6 @@
 <title>Mechanic - Predictive Maintenance</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
@@ -92,6 +91,26 @@ body{
     border-radius:10px;
 }
 
+.ai-button{
+    padding:12px 20px;
+    background:#2c3e50;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    margin-bottom:15px;
+}
+
+.ai-button:hover{
+    background:#34495e;
+}
+
+#aiResponse{
+    margin-top:10px;
+    line-height:1.6;
+}
+
 </style>
 
 </head>
@@ -131,8 +150,17 @@ body{
 </div>
 
 <div class="alert-box">
+
 <h2>AI Maintenance Recommendation</h2>
-<p>Future Gemini maintenance recommendations will appear here.</p>
+
+<button id="analyzeBtn" class="ai-button">
+Analyze with AI
+</button>
+
+<p id="aiResponse">
+Press "Analyze with AI" to request analysis.
+</p>
+
 </div>
 
 <a class="back-button" href="index.html">
@@ -166,6 +194,27 @@ db.ref("current").on("value",(snapshot)=>{
 
     document.getElementById("jamCount").innerHTML =
         data.splitting.wrapper_jam_count;
+
+});
+
+document.getElementById("analyzeBtn").addEventListener("click",()=>{
+
+    document.getElementById("aiResponse").innerHTML =
+        "AI request sent...";
+
+    db.ref("ai/mechanic/request")
+    .set(Date.now());
+
+});
+
+db.ref("ai/mechanic/response").on("value",(snapshot)=>{
+
+    const aiText = snapshot.val();
+
+    if(!aiText) return;
+
+    document.getElementById("aiResponse").innerHTML =
+        aiText;
 
 });
 
