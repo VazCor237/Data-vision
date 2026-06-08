@@ -10,6 +10,7 @@
 <title>Mechanic - Predictive Maintenance</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
@@ -107,8 +108,9 @@ body{
 }
 
 #aiResponse{
-    margin-top:10px;
+    margin-top:15px;
     line-height:1.6;
+    font-size:18px;
 }
 
 </style>
@@ -179,9 +181,15 @@ const firebaseConfig = {
   appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 const db = firebase.database();
+
+let waitingForAI = false;
+
+/* LIVE PROCESS DATA */
 
 db.ref("current").on("value",(snapshot)=>{
 
@@ -197,17 +205,27 @@ db.ref("current").on("value",(snapshot)=>{
 
 });
 
+/* BUTTON CLICK */
+
 document.getElementById("analyzeBtn").addEventListener("click",()=>{
 
+    waitingForAI = true;
+
     document.getElementById("aiResponse").innerHTML =
-        "AI request sent...";
+        "Analyzing...";
+
+    db.ref("ai/mechanic/response").remove();
 
     db.ref("ai/mechanic/request")
-    .set(Date.now());
+      .set(Date.now());
 
 });
 
+/* AI RESPONSE */
+
 db.ref("ai/mechanic/response").on("value",(snapshot)=>{
+
+    if(!waitingForAI) return;
 
     const aiText = snapshot.val();
 
@@ -215,6 +233,8 @@ db.ref("ai/mechanic/response").on("value",(snapshot)=>{
 
     document.getElementById("aiResponse").innerHTML =
         aiText;
+
+    waitingForAI = false;
 
 });
 
