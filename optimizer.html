@@ -10,12 +10,13 @@
 <title>Optimizer - Setpoint Optimization</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
 
-*{box-sizing:border-box;}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -53,6 +54,11 @@ body{
     text-align:center;
 }
 
+.card h2{
+    margin-top:0;
+    color:#555;
+}
+
 .value{
     font-size:42px;
     font-weight:bold;
@@ -83,6 +89,32 @@ body{
     color:white;
     text-decoration:none;
     border-radius:10px;
+}
+
+.ai-button{
+    padding:12px 20px;
+    background:#2c3e50;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.ai-button:hover{
+    background:#34495e;
+}
+
+#loading{
+    display:none;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+#aiResponse{
+    display:none;
+    margin-top:15px;
+    line-height:1.6;
 }
 
 </style>
@@ -124,8 +156,21 @@ body{
 </div>
 
 <div class="alert-box">
+
 <h2>AI Optimization Recommendation</h2>
-<p>Future Gemini optimization recommendations will appear here.</p>
+
+<button class="ai-button" id="analyzeBtn">
+Analyze with AI
+</button>
+
+<p id="loading">
+Analyzing...
+</p>
+
+<p id="aiResponse">
+Waiting for AI analysis...
+</p>
+
 </div>
 
 <a class="back-button" href="index.html">
@@ -144,7 +189,9 @@ const firebaseConfig = {
   appId: "1:307018246519:web:bd3bc4889d38a31cb7d972"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 const db = firebase.database();
 
@@ -154,11 +201,42 @@ db.ref("current").on("value",(snapshot)=>{
 
     if(!data) return;
 
-    document.getElementById("feedRate").innerHTML =
-        data.unpacking.feed_rate;
+    if(data.unpacking && data.unpacking.feed_rate){
+        document.getElementById("feedRate").innerHTML =
+            data.unpacking.feed_rate;
+    }
 
-    document.getElementById("rejectCount").innerHTML =
-        data.unpacking.reject_count;
+    if(data.unpacking && data.unpacking.reject_count){
+        document.getElementById("rejectCount").innerHTML =
+            data.unpacking.reject_count;
+    }
+
+});
+
+document.getElementById("analyzeBtn").addEventListener("click",()=>{
+
+    document.getElementById("loading").style.display =
+        "block";
+
+    document.getElementById("aiResponse").style.display =
+        "none";
+
+    db.ref("ai/optimizer/response")
+    .once("value")
+    .then((snapshot)=>{
+
+        const aiText = snapshot.val();
+
+        document.getElementById("loading").style.display =
+            "none";
+
+        document.getElementById("aiResponse").style.display =
+            "block";
+
+        document.getElementById("aiResponse").innerHTML =
+            aiText || "No AI response available.";
+
+    });
 
 });
 
