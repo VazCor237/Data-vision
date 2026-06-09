@@ -135,7 +135,46 @@ body{
     color:#5A3513;
     font-weight:bold;
 }
+.process-gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+    margin-top:30px;
+    margin-bottom:50px;
+}
 
+.process-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0px 6px 18px rgba(0,0,0,0.12);
+    border-left:8px solid #F76915;
+    transition:0.3s;
+}
+
+.process-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0px 10px 25px rgba(0,0,0,0.18);
+}
+
+.process-card img{
+    width:100%;
+    display:block;
+}
+
+.process-card h3{
+    margin:15px;
+    color:#5A3513;
+}
+
+.process-card p{
+    margin:15px;
+    color:#666;
+}
+
+.process-full{
+    grid-column:span 2;
+}
 </style>
 
 </head>
@@ -175,7 +214,43 @@ body{
 </div>
 
 </div>
+<h2 class="section-title">
+Production Line Demonstration
+</h2>
 
+<div class="process-gallery">
+
+    <div class="process-card">
+        <img src="process1.gif" alt="Process 1">
+        <h3>Box Opening</h3>
+        <p>Chocolate bars entering the production line.</p>
+    </div>
+
+    <div class="process-card">
+        <img src="process2.gif" alt="Process 2">
+        <h3>Splitting Process</h3>
+        <p>Automatic chocolate bar separation.</p>
+    </div>
+
+    <div class="process-card">
+        <img src="process3.gif" alt="Process 3">
+        <h3>Inspection Process</h3>
+        <p>AI monitoring and quality verification.</p>
+    </div>
+
+    <div class="process-card">
+        <img src="process4.gif" alt="Process 4">
+        <h3>Dispatch Process</h3>
+        <p>Finished products moving to dispatch.</p>
+    </div>
+
+    <div class="process-card process-full">
+        <img src="process5.gif" alt="Process 5">
+        <h3>Complete Production Line</h3>
+        <p>Digital Twin overview of the entire process.</p>
+    </div>
+
+</div>
 <h2 class="section-title">AI SCADA 4.0 Pillars</h2>
 
 <div class="pillars">
