@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Milky Way Digital Twin</title>
+<title>Pastelería Lety SCADA 4.0</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
@@ -23,22 +23,34 @@ body{
     margin:0;
     padding:30px;
     font-family:Arial,sans-serif;
-    background:#f0f2f5;
+    background:#f7f2ea;
 }
 
 .header{
     text-align:center;
     margin-bottom:40px;
+    background:#F76915;
+    color:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0px 8px 20px rgba(0,0,0,0.15);
+}
+
+.logo{
+    width:180px;
+    max-width:100%;
+    margin-bottom:15px;
 }
 
 .header h1{
     margin:0;
-    font-size:48px;
+    font-size:52px;
 }
 
 .header p{
-    color:#666;
-    font-size:18px;
+    margin-top:10px;
+    font-size:20px;
+    color:white;
 }
 
 .dashboard{
@@ -53,16 +65,24 @@ body{
     padding:25px;
     box-shadow:0px 4px 12px rgba(0,0,0,0.12);
     text-align:center;
+    border-left:8px solid #F76915;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0px 10px 20px rgba(0,0,0,0.15);
 }
 
 .card h2{
     margin-top:0;
-    color:#555;
+    color:#5A3513;
 }
 
 .value{
     font-size:42px;
     font-weight:bold;
+    color:#5A3513;
 }
 
 .section-title{
@@ -70,6 +90,7 @@ body{
     margin-bottom:20px;
     text-align:center;
     font-size:36px;
+    color:#5A3513;
 }
 
 .pillars{
@@ -82,22 +103,37 @@ body{
     display:block;
     text-decoration:none;
     text-align:center;
-    background:#2c3e50;
+    background:#F76915;
     color:white;
-    padding:30px;
+    padding:35px;
     border-radius:15px;
     font-size:22px;
     transition:0.3s;
+    box-shadow:0px 4px 12px rgba(0,0,0,0.12);
 }
 
 .pillar-btn:hover{
-    background:#34495e;
+    background:#d9550f;
+    transform:translateY(-5px);
+}
+
+.pillar-icon{
+    font-size:42px;
+    display:block;
+    margin-bottom:15px;
+}
+
+.pillar-subtitle{
+    font-size:14px;
+    opacity:0.9;
+    margin-top:8px;
 }
 
 .footer{
     text-align:center;
     margin-top:50px;
-    color:#777;
+    color:#5A3513;
+    font-weight:bold;
 }
 
 </style>
@@ -108,9 +144,11 @@ body{
 
 <div class="header">
 
-<h1>🍫 Milky Way Digital Twin</h1>
+<img src="download.jpg" class="logo" alt="Pastelería Lety Logo">
 
-<p>SCADA 4.0 Dashboard</p>
+<h1>Pastelería Lety</h1>
+
+<p>SCADA 4.0 Digital Twin Platform</p>
 
 </div>
 
@@ -138,35 +176,63 @@ body{
 
 </div>
 
-<h2 class="section-title">AI Pillars</h2>
+<h2 class="section-title">AI SCADA 4.0 Pillars</h2>
 
 <div class="pillars">
 
 <a class="pillar-btn" href="watchman.html">
-Student A<br>
-Watchman
+
+<span class="pillar-icon">👁️</span>
+
+WATCHMAN
+
+<div class="pillar-subtitle">
+Anomaly Detection
+</div>
+
 </a>
 
 <a class="pillar-btn" href="mechanic.html">
-Student B<br>
-Mechanic
+
+<span class="pillar-icon">🔧</span>
+
+MECHANIC
+
+<div class="pillar-subtitle">
+Predictive Maintenance
+</div>
+
 </a>
 
 <a class="pillar-btn" href="optimizer.html">
-Student C<br>
-Optimizer
+
+<span class="pillar-icon">⚙️</span>
+
+OPTIMIZER
+
+<div class="pillar-subtitle">
+Setpoint Optimization
+</div>
+
 </a>
 
 <a class="pillar-btn" href="coordinator.html">
-Student D<br>
-Coordinator
+
+<span class="pillar-icon">📋</span>
+
+COORDINATOR
+
+<div class="pillar-subtitle">
+Decision Support
+</div>
+
 </a>
 
 </div>
 
 <div class="footer">
 
-<p>Milky Way Sorting & Inspection System</p>
+<p>Pastelería Lety • SCADA 4.0 Demonstration Platform</p>
 
 </div>
 
